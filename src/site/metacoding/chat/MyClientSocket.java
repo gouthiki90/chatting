@@ -22,16 +22,28 @@ public class MyClientSocket {
             sc = new Scanner(System.in);
             // 키보드로부터 입력 받는 부분
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            new Thread(() -> {
+                try {
+                    while (true) {
+                        String data = sc.nextLine();
+                        writer.write(data + "\n");
+                        System.out.println(data);
+
+                        if (data.equals("stop")) {
+                            break;
+                        }
+                        writer.flush(); // 버퍼에 다 안 차서 내려줌
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             while (true) {
-                String data = sc.nextLine();
-                writer.write(data + "\n");
-                System.out.println(data);
-
-                if (data.equals("stop")) {
-                    break;
-                }
-                writer.flush(); // 버퍼에 다 안 차서 내려줌
+                String inputData = reader.readLine();
+                System.out.println("받은 메시지" + inputData);
             }
 
         } catch (Exception e) {
