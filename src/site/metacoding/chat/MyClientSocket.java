@@ -28,10 +28,6 @@ public class MyClientSocket {
                         String data = sc.nextLine();
                         writer.write(data + "\n");
                         System.out.println(data);
-
-                        if (data.equals("stop")) {
-                            break;
-                        }
                         writer.flush(); // 버퍼에 다 안 차서 내려줌
                     }
                 } catch (Exception e) {
@@ -44,6 +40,10 @@ public class MyClientSocket {
             while (true) {
                 String inputData = reader.readLine();
                 System.out.println("받은 메시지" + inputData);
+
+                if (inputData.equals("stop")) {
+                    break;
+                }
             }
 
         } catch (Exception e) {
