@@ -18,9 +18,22 @@ public class MyClientSocket {
         try {
             socket = new Socket("localhost", 1077); // IP 주소와 포트
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.write("안녕\n"); // 메시지 끝이라는 것을 알려줌 \n
-            // 버퍼에 담았음
-            writer.flush(); // 버퍼에 다 안 차서 내려줌
+            // 스캐너 달기
+            sc = new Scanner(System.in);
+            // 키보드로부터 입력 받는 부분
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            while (true) {
+                String data = sc.nextLine();
+                writer.write(data + "\n");
+                System.out.println(data);
+
+                if (data.equals("stop")) {
+                    break;
+                }
+                writer.flush(); // 버퍼에 다 안 차서 내려줌
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

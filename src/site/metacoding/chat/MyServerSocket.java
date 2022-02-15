@@ -21,9 +21,15 @@ public class MyServerSocket {
             socket = serverSocket.accept(); // while 돌면서 대기(랜덤 포트), 데몬, while 돌면서 대기
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             // 읽는 버퍼 달았음
-            String inputData = reader.readLine(); // 데이터 읽기
-            System.out.println("받은 메시지" + inputData);
-            System.out.println("클라이언트 연결됨");
+            while (true) {
+                String inputData = reader.readLine(); // 데이터 읽기
+                System.out.println("받은 메시지" + inputData);
+                System.out.println("클라이언트 연결됨");
+
+                if (inputData.equals("stop")) {
+                    break;
+                }
+            }
 
         } catch (Exception e) {
             System.out.println("통신 오류 발생" + e.getMessage());
