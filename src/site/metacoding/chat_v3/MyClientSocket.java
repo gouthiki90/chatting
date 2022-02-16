@@ -22,7 +22,7 @@ public class MyClientSocket {
         String username;
 
         try {
-            socket = new Socket("192.168.132", 2000);
+            socket = new Socket("localhost", 2000);
 
             // 객체 생성
             sc = new Scanner(System.in);

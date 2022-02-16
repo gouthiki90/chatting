@@ -137,7 +137,7 @@ public class MyServerSocket {
             try {
                 while (isLogin) {
                     String inputData = reader.readLine(); // 읽기 대기하다가 연결 해제하면 스트림 연결 해제됨
-                    System.out.println("form 클라이언트 : " + inputData);
+                    System.out.println(username + ":" + inputData);
 
                     jwp(inputData);
                 }
