@@ -1,4 +1,4 @@
-package site.metacoding.chat_v2;
+package site.metacoding.chat_v3;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +18,9 @@ public class MyClientSocket {
     Scanner sc;
 
     public MyClientSocket() {
+
+        String username;
+
         try {
             socket = new Socket("192.168.132", 2000);
 
@@ -28,11 +31,17 @@ public class MyClientSocket {
 
             // 새로운 스레드는 읽기 전용
             new Thread(new 읽기전담스레드()).start();
+
             // 메인 스레드가 쓰기 전용, 새로운 스레드가 먼저. 와일 돌아야 되기 때문
+            // 최초 username 전송 프로토콜
+            System.out.println("아이디를 입력하세요."); // 최초에 보낸 메시지는 아이디가 되도록 프로토콜 생성
+            username = sc.nextLine(); // 아이디를 유저네임으로 받기
+
             while (true) {
                 String keyboardInputData = sc.nextLine();
                 writer.write(keyboardInputData + "\n");
                 writer.flush(); // 버퍼에 담긴 것을 스트림으로 흘려보내기, 플러쉬 때 통신 시작
+                System.out.println(username + "이 서버로 전송되었습니다.");
             }
         } catch (Exception e) {
             e.printStackTrace();
